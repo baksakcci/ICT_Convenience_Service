@@ -40,8 +40,13 @@ public class ItemController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/item")
     public Response getItems() {
-        itemService.findItemAll();
-        return Response.success("물품 전체 조회");
+        return Response.success(itemService.findItemAll());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/item/{id}")
+    public Response getItem(@PathVariable("id") Long id) {
+        return Response.success(itemService.findItem(id));
     }
 
 

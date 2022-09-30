@@ -17,18 +17,19 @@ import java.util.List;
 public class ItemService {
     private final ItemRepository itemRepository;
     @Transactional
-    public void createItem(ItemRequestDto itemRequestDto) {
-        Item item = new Item(itemRequestDto.getItemName(), itemRequestDto.getItemDetailName(), itemRequestDto.getEA(), itemRequestDto.getUse());
+    public void createItem(ItemRequestDto ite) {
+        Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
         itemRepository.save(item);
     }
     @Transactional
-    public void updateItem(ItemRequestDto ite, Long itemId) {
-        Item item = itemRepository.findById(itemId).orElseThrow(ItemNotFoundException::new);
-        item.editItem(ite.getItemName(), ite.getItemDetailName(), ite.getEA(), ite.getUse());
+    public void updateItem(ItemRequestDto ite, Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+        item.editItem(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
     }
 
     @Transactional
     public void deleteItem(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
         itemRepository.deleteById(id);
     }
 
@@ -40,5 +41,11 @@ public class ItemService {
             result.add(ItemResponseDto.toDto(item));
         }
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public ItemResponseDto findItem(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+        return ItemResponseDto.toDto(item);
     }
 }
