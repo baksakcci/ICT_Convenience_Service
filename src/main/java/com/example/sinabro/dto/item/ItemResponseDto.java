@@ -13,6 +13,13 @@ public class ItemResponseDto {
     private String itemName;
     private String itemDetailName;
     private Used used;
+
+    public ItemResponseDto(Item item) {
+        this.itemName = item.getItemName();
+        this.itemDetailName = item.getItemDetailName();
+        this.used = item.getUsed();
+    }
+
     public static ItemResponseDto toDto(Item item) {
         return new ItemResponseDto(item.getItemName(), item.getItemDetailName()
                 , item.getUsed());

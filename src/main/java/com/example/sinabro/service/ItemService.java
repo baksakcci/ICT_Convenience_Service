@@ -1,16 +1,17 @@
 package com.example.sinabro.service;
 
+import com.example.sinabro.dto.item.ItemListDto;
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.entity.item.Item;
 import com.example.sinabro.exception.ItemNotFoundException;
 import com.example.sinabro.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class ItemService {
     public void updateItem(ItemRequestDto ite, Long id) {
         Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
         item.editItem(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
+        itemRepository.save(item);
     }
 
     @Transactional
@@ -33,14 +35,12 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
+    /* paging */
     @Transactional(readOnly = true)
-    public List<ItemResponseDto> findItemAll() {
-        List<Item> items = itemRepository.findAll();
-        List<ItemResponseDto> result = new ArrayList<>();
-        for (Item item : items) {
-            result.add(ItemResponseDto.toDto(item));
-        }
-        return result;
+    public ItemListDto findItemAll(Pageable pageable) {
+        Page<Item> itemPage = itemRepository.findAll(pageable);
+        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
+        return itemListDto;
     }
 
     @Transactional(readOnly = true)
