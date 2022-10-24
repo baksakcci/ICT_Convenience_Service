@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     /* paging  */
     Page<Item> findAll(Pageable pageable);
+    /* paging + searching */
+    Page<Item> findByItemNameContaining(String keyword, Pageable pageable);
 }

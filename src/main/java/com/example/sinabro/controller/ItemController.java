@@ -19,6 +19,21 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    /* paging */
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/items")
+    public Response getItems(@PageableDefault(size = 4, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        // http://localhost:8080/api/boards/?page=0
+        return Response.success(itemService.findItemAll(pageable));
+    }
+
+    /* paging + searching */
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/items/search")
+    public Response SearchItems(@RequestParam(value = "keyword") String keyword, @PageableDefault(size = 4, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return Response.success(itemService.searchItem(pageable, keyword));
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/items")
     public Response createItem(@Valid @RequestBody ItemRequestDto itemRequestDto) {
@@ -40,13 +55,7 @@ public class ItemController {
         return Response.success("물품 삭제 완료");
     }
 
-    /* paging */
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/items")
-    public Response getItems(@PageableDefault(size = 4, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        // http://localhost:8080/api/boards/?page=0
-        return Response.success(itemService.findItemAll(pageable));
-    }
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/items/{id}")

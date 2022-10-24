@@ -17,6 +17,22 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
+
+    /* paging */
+    @Transactional(readOnly = true)
+    public ItemListDto findItemAll(Pageable pageable) {
+        Page<Item> itemPage = itemRepository.findAll(pageable);
+        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
+        return itemListDto;
+    }
+    /* paging + search */
+    @Transactional(readOnly = true)
+    public ItemListDto searchItem(Pageable pageable, String keyword) {
+        Page<Item> itemPage = itemRepository.findByItemNameContaining(keyword, pageable);
+        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
+        return itemListDto;
+    }
+
     @Transactional
     public void createItem(ItemRequestDto ite) {
         Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
@@ -35,13 +51,7 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    /* paging */
-    @Transactional(readOnly = true)
-    public ItemListDto findItemAll(Pageable pageable) {
-        Page<Item> itemPage = itemRepository.findAll(pageable);
-        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
-        return itemListDto;
-    }
+
 
     @Transactional(readOnly = true)
     public ItemResponseDto findItem(Long id) {
