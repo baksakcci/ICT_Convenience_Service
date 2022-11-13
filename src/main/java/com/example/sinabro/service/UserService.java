@@ -38,7 +38,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserResponseDto findMember(String id) {
+    public UserResponseDto findUser(String id) {
         User user = userRepository.findByStudentId(id).orElseThrow(UserNotFoundException::new);
         return UserResponseDto.toDto(user);
     }

@@ -12,39 +12,50 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ExceptionAdvice {
 
+    /*
+    User
+     */
     @ExceptionHandler(SignupViolationException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public Response SignupViolationExceptionAdvice(SignupViolationException e) {
         return Response.failure(406, "이미 등록된 사용자입니다.");
     }
-
     @ExceptionHandler(UserPasswordNotEqualException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public Response UserPasswordNotEqualExceptionAdvice(UserPasswordNotEqualException e) {
         return Response.failure(406, "비밀번호가 틀립니다.");
     }
-
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response UserNotFoundExceptionAdvice(UserNotFoundException e) {
-        return Response.failure(404, "회원정보를 찾을 수 없습니다.");
+        return Response.failure(404, "DB에 저장된 회원정보를 찾을 수 없습니다.");
     }
 
+    /*
+    admin
+     */
+    @ExceptionHandler(UserNotAdminException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Response UserNotAdminExceptionAdvice(UserNotAdminException e) {
+        return Response.failure(401, "관리자 권한이 아닙니다.");
+    }
+
+    /*
+    Item
+     */
     @ExceptionHandler(ItemNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response ItemNotFoundExceptionAdvice(ItemNotFoundException e) {
         return Response.failure(404, "물품을 찾을 수 없습니다.");
     }
-
-    @ExceptionHandler(WarningNotFoundException.class)
+    /*
+    Notice
+     */
+    @ExceptionHandler(NotionNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Response WarningNotFoundExceptionAdvice(WarningNotFoundException e) {
-        return Response.failure(404, "회원님의 제재내역을 찾을 수 없습니다.");
+    public Response NoticeNotFoundExceptionAdvice(NotionNotFoundException e) {
+        return Response.failure(404, "DB에 저장된 알림이 없습니다.");
     }
 
-    @ExceptionHandler(UsageHistoryNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Response UsageHistoryNotFoundExceptionAdvice(UsageHistoryNotFoundException e) {
-        return Response.failure(404, "회원님의 물품 이용내역을 찾을 수 없습니다.");
-    }
+
 }

@@ -18,14 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    /* paging */
+    /*
+    [[ User ]]
+     */
+    // paging
     @Transactional(readOnly = true)
     public ItemListDto findItemAll(Pageable pageable) {
         Page<Item> itemPage = itemRepository.findAll(pageable);
         ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
         return itemListDto;
     }
-    /* paging + search */
+    // paging + search
     @Transactional(readOnly = true)
     public ItemListDto searchItem(Pageable pageable, String keyword) {
         Page<Item> itemPage = itemRepository.findByItemNameContaining(keyword, pageable);
@@ -33,6 +36,9 @@ public class ItemService {
         return itemListDto;
     }
 
+    /*
+    [[ Admin ]]
+     */
     @Transactional
     public void createItem(ItemRequestDto ite) {
         Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
@@ -50,8 +56,6 @@ public class ItemService {
         Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
         itemRepository.deleteById(id);
     }
-
-
 
     @Transactional(readOnly = true)
     public ItemResponseDto findItem(Long id) {
