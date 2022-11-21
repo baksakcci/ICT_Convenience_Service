@@ -3,11 +3,11 @@ package com.example.sinabro.entity.user;
 import lombok.Getter;
 
 @Getter
-public enum UserRole {
+public enum UsersRole {
     ADMIN("ROLE_ADMIN"),
     USER("ROLE_USER");
 
-    UserRole(String value) {
+    UsersRole(String value) {
         this.value = value;
     }
 

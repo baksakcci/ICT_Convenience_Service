@@ -1,7 +1,6 @@
 package com.example.sinabro.service;
 
-import com.example.sinabro.dto.item.ItemListDto;
-import com.example.sinabro.dto.item.ItemRequestDto;
+import com.example.sinabro.dto.item.ItemResponseListDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.entity.item.Item;
 import com.example.sinabro.exception.ItemNotFoundException;
@@ -23,40 +22,18 @@ public class ItemService {
      */
     // paging
     @Transactional(readOnly = true)
-    public ItemListDto findItemAll(Pageable pageable) {
+    public ItemResponseListDto findItemAll(Pageable pageable) {
         Page<Item> itemPage = itemRepository.findAll(pageable);
-        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
-        return itemListDto;
+        ItemResponseListDto itemResponseListDto = ItemResponseListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
+        return itemResponseListDto;
     }
     // paging + search
     @Transactional(readOnly = true)
-    public ItemListDto searchItem(Pageable pageable, String keyword) {
+    public ItemResponseListDto searchItem(Pageable pageable, String keyword) {
         Page<Item> itemPage = itemRepository.findByItemNameContaining(keyword, pageable);
-        ItemListDto itemListDto = ItemListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
-        return itemListDto;
+        ItemResponseListDto itemResponseListDto = ItemResponseListDto.toDto(itemPage.getTotalPages(), itemPage.getTotalElements(), itemPage.getNumber(), itemPage.getContent());
+        return itemResponseListDto;
     }
-
-    /*
-    [[ Admin ]]
-     */
-    @Transactional
-    public void createItem(ItemRequestDto ite) {
-        Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
-        itemRepository.save(item);
-    }
-    @Transactional
-    public void updateItem(ItemRequestDto ite, Long id) {
-        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
-        item.editItem(ite.getItemName(), ite.getItemDetailName(), ite.getUsed());
-        itemRepository.save(item);
-    }
-
-    @Transactional
-    public void deleteItem(Long id) {
-        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
-        itemRepository.deleteById(id);
-    }
-
     @Transactional(readOnly = true)
     public ItemResponseDto findItem(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);

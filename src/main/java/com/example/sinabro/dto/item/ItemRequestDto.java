@@ -1,6 +1,6 @@
 package com.example.sinabro.dto.item;
 
-import com.example.sinabro.entity.item.Used;
+import com.example.sinabro.entity.item.IsRental;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,6 @@ public class ItemRequestDto {
     private String itemDetailName;
 
     @NotNull(message = "사용여부를 작성해주세요")
-    private Used used;
+    private IsRental isRental;
 
 }

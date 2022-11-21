@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RentalRequestDto {
+public class RentalsRequestDto {
     @NotNull(message = "타이틀을 입력하세요")
     private String content;
 

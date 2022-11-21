@@ -48,6 +48,11 @@ public class ExceptionAdvice {
     public Response ItemNotFoundExceptionAdvice(ItemNotFoundException e) {
         return Response.failure(404, "물품을 찾을 수 없습니다.");
     }
+    @ExceptionHandler(ItemCanNotUseException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public Response ItemCanNotUseExceptionAdvice(ItemCanNotUseException e) {
+        return Response.failure(405, "물품이 사용중입니다. 물품이 대여 가능상태가 아닙니다.");
+    }
     /*
     Notice
      */

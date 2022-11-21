@@ -1,7 +1,7 @@
 package com.example.sinabro.dto.user;
 
 import com.example.sinabro.entity.user.Users;
-import com.example.sinabro.entity.user.UserRole;
+import com.example.sinabro.entity.user.UsersRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserResponseDto {
+public class UsersResponseDto {
     private String studentId;
     private String password;
-    private UserRole userRole;
+    private UsersRole userRole;
 
-    public static UserResponseDto toDto(Users users) {
-        return new UserResponseDto(users.getStudentId(), users.getPassword(), users.getUserRole());
+    public static UsersResponseDto toDto(Users users) {
+        return new UsersResponseDto(users.getStudentId(), users.getPassword(), users.getUsersRole());
     }
 }

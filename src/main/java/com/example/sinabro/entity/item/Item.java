@@ -21,18 +21,18 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Used used;
+    private IsRental isRental;
 
-    public Item(String itemName, String itemDetailName, Used used) {
+    public Item(String itemName, String itemDetailName, IsRental isRental) {
         this.itemName = itemName;
         this.itemDetailName = itemDetailName;
-        this.used = used;
+        this.isRental = isRental;
     }
 
-    public Item editItem(String itemName, String itemDetailName, Used used) {
+    public Item editItem(String itemName, String itemDetailName, IsRental isRental) {
         this.itemName = itemName;
         this.itemDetailName = itemDetailName;
-        this.used = used;
+        this.isRental = isRental;
         return this;
     }
 }

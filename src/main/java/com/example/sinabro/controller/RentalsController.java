@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class RentalController {
+public class RentalsController {
 
     private final RentalsService rentalsService;
 

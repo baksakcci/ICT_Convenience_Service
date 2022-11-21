@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserRequestDto {
+public class UsersRequestDto {
     @NotNull(message = "학번을 입력하세요")
     private String studentId;
 

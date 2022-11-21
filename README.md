@@ -8,7 +8,7 @@
 
 ---
 # 3. Team Member
-**team user in charge** | **Role**
+**team users in charge** | **Role**
 
 - 최승근 | 기획 및 디자인
 - 정경완 | Android Studio

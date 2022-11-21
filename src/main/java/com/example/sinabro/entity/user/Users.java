@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserRole userRole;
+    private UsersRole usersRole;
 
-    public User(String studentId, String password) {
+    public Users(String studentId, String password) {
         this.studentId = studentId;
         this.password = password;
     }
 
-    public User editMember(String studentId, String password) {
+    public Users editMember(String studentId, String password) {
         this.studentId = studentId;
         this.password = password;
         return this;

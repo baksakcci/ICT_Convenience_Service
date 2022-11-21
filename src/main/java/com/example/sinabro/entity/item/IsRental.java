@@ -1,5 +1,5 @@
 package com.example.sinabro.entity.item;
 
-public enum Used {
+public enum IsRental {
     CAN, CANT, DISTROY
 }
