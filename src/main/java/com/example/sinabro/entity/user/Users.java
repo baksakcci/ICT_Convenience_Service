@@ -1,14 +1,11 @@
-package com.example.sinabro.entity.member;
+package com.example.sinabro.entity.user;
 
-import com.example.sinabro.entity.notice.Notice;
-import com.example.sinabro.entity.rental.Rental;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data

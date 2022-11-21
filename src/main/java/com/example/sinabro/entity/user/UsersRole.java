@@ -1,4 +1,4 @@
-package com.example.sinabro.entity.member;
+package com.example.sinabro.entity.user;
 
 import lombok.Getter;
 

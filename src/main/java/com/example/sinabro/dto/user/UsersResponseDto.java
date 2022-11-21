@@ -1,7 +1,7 @@
 package com.example.sinabro.dto.user;
 
-import com.example.sinabro.entity.member.User;
-import com.example.sinabro.entity.member.UserRole;
+import com.example.sinabro.entity.user.Users;
+import com.example.sinabro.entity.user.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ public class UserResponseDto {
     private String password;
     private UserRole userRole;
 
-    public static UserResponseDto toDto(User user) {
-        return new UserResponseDto(user.getStudentId(), user.getPassword(), user.getUserRole());
+    public static UserResponseDto toDto(Users users) {
+        return new UserResponseDto(users.getStudentId(), users.getPassword(), users.getUserRole());
     }
 }
