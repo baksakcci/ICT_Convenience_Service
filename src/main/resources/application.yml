@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sinabro?characterEncoding=UTF-8&serverTimeZone=Asia/Seoul #useSSL=false&
+    url: jdbc:mysql://localhost:3306/sinabro?useSSL=false&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
