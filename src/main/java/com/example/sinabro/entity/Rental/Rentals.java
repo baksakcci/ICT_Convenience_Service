@@ -27,7 +27,6 @@ public class Rentals {
     private String contents;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    @Column()
     @ColumnDefault("0")
     private LocalDate borrowDate; // 날짜
 
