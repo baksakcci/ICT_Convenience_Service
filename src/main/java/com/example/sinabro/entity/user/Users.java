@@ -21,6 +21,9 @@ public class Users {
     private String studentId;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     @JsonIgnore
     private String password;
 
@@ -28,12 +31,13 @@ public class Users {
     @Column(nullable = false)
     private UsersRole usersRole;
 
-    public Users(String studentId, String password) {
+    public Users(String studentId, String name, String password) {
         this.studentId = studentId;
+        this.name = name;
         this.password = password;
     }
 
-    public Users editMember(String studentId, String password) {
+    public Users loginUser(String studentId, String password) {
         this.studentId = studentId;
         this.password = password;
         return this;

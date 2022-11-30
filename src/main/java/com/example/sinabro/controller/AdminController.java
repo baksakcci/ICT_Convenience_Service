@@ -2,7 +2,8 @@ package com.example.sinabro.controller;
 
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
-import com.example.sinabro.dto.user.UsersRequestDto;
+import com.example.sinabro.dto.user.UserAdminRequestDto;
+import com.example.sinabro.dto.user.UsersLoginRequestDto;
 import com.example.sinabro.response.Response;
 import com.example.sinabro.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class AdminController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/signup")
-    public Response signup(@Valid @RequestBody UsersRequestDto usersRequestDto){
-        return Response.success(adminService.createUser(usersRequestDto));
+    public Response signup(@Valid @RequestBody UserAdminRequestDto userAdminRequestDto){
+        return Response.success(adminService.createUser(userAdminRequestDto));
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -40,14 +41,6 @@ public class AdminController {
     @GetMapping("/users")
     public Response getUserAll() {
         return Response.success(adminService.findMemberAll());
-    }
-
-    // 학번이나 비밀번호 수정할 때
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/users/{id}")
-    public Response updateUser(@PathVariable("id") Long id, @Valid @RequestBody UsersRequestDto usersRequestDto) {
-        adminService.updateMember(usersRequestDto, id);
-        return Response.success("회원 수정 완료");
     }
 
     @ResponseStatus(HttpStatus.OK)

@@ -1,6 +1,6 @@
 package com.example.sinabro.controller;
 
-import com.example.sinabro.dto.user.UsersRequestDto;
+import com.example.sinabro.dto.user.UsersLoginRequestDto;
 import com.example.sinabro.response.Response;
 import com.example.sinabro.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ public class UserController {
      */
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    public Response login(@Valid @RequestBody UsersRequestDto usersRequestDto) {
-        return Response.success(userService.loginUser(usersRequestDto));
+    public Response login(@Valid @RequestBody UsersLoginRequestDto usersLoginRequestDto) {
+        return Response.success(userService.loginUser(usersLoginRequestDto));
     }
 
 }

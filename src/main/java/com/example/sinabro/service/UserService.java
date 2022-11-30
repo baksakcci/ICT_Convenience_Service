@@ -1,7 +1,7 @@
 package com.example.sinabro.service;
 
-import com.example.sinabro.dto.user.UsersRequestDto;
-import com.example.sinabro.dto.user.UsersResponseDto;
+import com.example.sinabro.dto.user.UsersLoginRequestDto;
+import com.example.sinabro.dto.user.UsersLoginResponseDto;
 import com.example.sinabro.entity.user.Users;
 import com.example.sinabro.exception.UserNotFoundException;
 import com.example.sinabro.exception.UserPasswordNotEqualException;
@@ -17,13 +17,14 @@ public class UserService {
     private final UsersRepository usersRepository;
 
     @Transactional
-    public UsersResponseDto loginUser(UsersRequestDto urd) {
-        Users u = new Users(urd.getStudentId(), urd.getPassword());
+    public UsersLoginResponseDto loginUser(UsersLoginRequestDto urd) {
+        Users u = new Users();
+        u.loginUser(urd.getStudentId(), urd.getPassword());
         Users users = usersRepository.findByStudentId(urd.getStudentId()).orElseThrow(UserNotFoundException::new);
 
         if(!u.getPassword().equals(users.getPassword())) {
             throw new UserPasswordNotEqualException();
         }
-        return UsersResponseDto.toDto(users);
+        return UsersLoginResponseDto.toDto(users);
     }
 }

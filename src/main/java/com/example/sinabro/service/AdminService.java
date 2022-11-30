@@ -4,8 +4,10 @@ import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
 import com.example.sinabro.dto.rental.RentalsResponseDto;
-import com.example.sinabro.dto.user.UsersRequestDto;
-import com.example.sinabro.dto.user.UsersResponseDto;
+import com.example.sinabro.dto.user.UserAdminRequestDto;
+import com.example.sinabro.dto.user.UserAdminResponseDto;
+import com.example.sinabro.dto.user.UsersLoginRequestDto;
+import com.example.sinabro.dto.user.UsersLoginResponseDto;
 import com.example.sinabro.entity.item.IsRental;
 import com.example.sinabro.entity.item.Item;
 import com.example.sinabro.entity.user.Users;
@@ -34,46 +36,43 @@ public class AdminService {
     [[ USER ]]
      */
     @Transactional
-    public UsersResponseDto createUser(UsersRequestDto urd) {
-        if(!usersRepository.findByStudentId(urd.getStudentId()).isEmpty()) {
+    public UserAdminResponseDto createUser(UserAdminRequestDto urd) {
+        if (!usersRepository.findByStudentId(urd.getStudentId()).isEmpty()) {
             throw new SignupViolationException();
         }
 
-        Users users = new Users(urd.getStudentId(), urd.getPassword());
-        if("admin".equals(urd.getStudentId())) {
+        Users users = new Users(urd.getStudentId(), urd.getName(), urd.getPassword());
+        if ("admin".equals(urd.getStudentId())) {
             users.setUsersRole(UsersRole.ADMIN);
         } else {
             users.setUsersRole(UsersRole.USER);
         }
         usersRepository.save(users);
-        return UsersResponseDto.toDto(users);
-    }
 
-    @Transactional(readOnly = true)
-    public UsersResponseDto findUser(String id) {
-        Users users = usersRepository.findByStudentId(id).orElseThrow(UserNotFoundException::new);
-        return UsersResponseDto.toDto(users);
+        return UserAdminResponseDto.toDto(users);
     }
-    @Transactional
-    public void updateMember(UsersRequestDto mem, Long id) {
-        Users users = usersRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        users.editMember(mem.getStudentId(), mem.getPassword());
-        usersRepository.save(users);
+    @Transactional(readOnly = true)
+    public UserAdminResponseDto findUser(String id) {
+        Users users = usersRepository.findByStudentId(id).orElseThrow(UserNotFoundException::new);
+        return UserAdminResponseDto.toDto(users);
+    }
+    @Transactional(readOnly = true)
+    public List<UserAdminResponseDto> findMemberAll() {
+        List<Users> items = usersRepository.findAll();
+        List<UserAdminResponseDto> result = new ArrayList<>();
+        for (Users users : items) {
+            result.add(UserAdminResponseDto.toDto(users));
+        }
+        return result;
     }
     @Transactional
     public void deleteMember(Long id) {
         Users users = usersRepository.findById(id).orElseThrow(UserNotFoundException::new);
         usersRepository.delete(users);
     }
-    @Transactional(readOnly = true)
-    public List<UsersResponseDto> findMemberAll() {
-        List<Users> items = usersRepository.findAll();
-        List<UsersResponseDto> result = new ArrayList<>();
-        for (Users users : items) {
-            result.add(UsersResponseDto.toDto(users));
-        }
-        return result;
-    }
+
+
+
     /*
     [[ ITEM ]]
      */
