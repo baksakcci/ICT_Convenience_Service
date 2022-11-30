@@ -66,8 +66,8 @@ public class AdminService {
         return result;
     }
     @Transactional
-    public void deleteMember(Long id) {
-        Users users = usersRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    public void deleteMember(String name) {
+        Users users = usersRepository.findByName(name).orElseThrow(UserNotFoundException::new);
         usersRepository.delete(users);
     }
 

@@ -44,9 +44,9 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/users/{id}")
-    public Response deleteUser(@PathVariable("id") Long id) {
-        adminService.deleteMember(id);
+    @DeleteMapping("/users/delete")
+    public Response deleteUser(@RequestParam("name") String name) {
+        adminService.deleteMember(name);
         return Response.success("회원 삭제 완료");
     }
 
