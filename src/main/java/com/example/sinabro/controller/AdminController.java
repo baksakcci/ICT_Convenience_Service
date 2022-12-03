@@ -61,6 +61,11 @@ public class AdminController {
         // http://localhost:8080/api/boards/?page=0
         return Response.success(adminService.findItemAll());
     }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/items")
+    public Response getItemNames() {
+        return Response.success(adminService.findItemDetailAll());
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/items")

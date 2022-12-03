@@ -1,5 +1,6 @@
 package com.example.sinabro.service;
 
+import com.example.sinabro.dto.item.ItemNameResponseDto;
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
@@ -85,6 +86,12 @@ public class AdminService {
             dtoList.add(toDto);
         }
         return dtoList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ItemNameResponseDto> findItemDetailAll() {
+        List<ItemNameResponseDto> groupByItemNameWithJPQL = itemRepository.findGroupByItemNameWithJPQL();
+        return groupByItemNameWithJPQL;
     }
     @Transactional
     public void createItem(ItemRequestDto ite) {
