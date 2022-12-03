@@ -62,7 +62,7 @@ public class AdminController {
         return Response.success(adminService.findItemAll());
     }
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/items")
+    @GetMapping("/items/itemNames")
     public Response getItemNames() {
         return Response.success(adminService.findItemDetailAll());
     }
