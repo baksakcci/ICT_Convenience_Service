@@ -1,6 +1,7 @@
 package com.example.sinabro.repository;
 
 import com.example.sinabro.dto.item.ItemNameResponseDto;
+import com.example.sinabro.dto.item.ItemNameResponseInterface;
 import com.example.sinabro.entity.item.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +17,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     /* paging + searching */
     Page<Item> findByItemNameContaining(String keyword, Pageable pageable);
 
-    @Query(value = "SELECT i.itemName FROM Item i GROUP BY i.itemName", nativeQuery = true)
-    List<ItemNameResponseDto> findGroupByItemNameWithJPQL();
+    @Query(value = "SELECT i.itemName AS itemName FROM Item i GROUP BY i.itemName", nativeQuery = true)
+    List<ItemNameResponseInterface> findGroupByItemNameWithJPQL();
 
     Optional<Item> findByItemDetailName(String itemDetailName);
 }

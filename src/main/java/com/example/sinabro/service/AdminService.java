@@ -1,6 +1,7 @@
 package com.example.sinabro.service;
 
 import com.example.sinabro.dto.item.ItemNameResponseDto;
+import com.example.sinabro.dto.item.ItemNameResponseInterface;
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
@@ -89,8 +90,8 @@ public class AdminService {
     }
 
     @Transactional(readOnly = true)
-    public List<ItemNameResponseDto> findItemDetailAll() {
-        List<ItemNameResponseDto> groupByItemNameWithJPQL = itemRepository.findGroupByItemNameWithJPQL();
+    public List<ItemNameResponseInterface> findItemDetailAll() {
+        List<ItemNameResponseInterface> groupByItemNameWithJPQL = itemRepository.findGroupByItemNameWithJPQL();
         return groupByItemNameWithJPQL;
     }
     @Transactional
