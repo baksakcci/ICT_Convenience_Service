@@ -90,10 +90,22 @@ public class AdminService {
     }
 
     @Transactional(readOnly = true)
-    public List<ItemNameResponseInterface> findItemDetailAll() {
+    public List<ItemNameResponseInterface> findItemNameAll() {
         List<ItemNameResponseInterface> groupByItemNameWithJPQL = itemRepository.findGroupByItemNameWithJPQL();
         return groupByItemNameWithJPQL;
     }
+
+    @Transactional(readOnly = true)
+    public List<ItemResponseDto> findItemDetailAll(String itemName) {
+        List<Item> items = itemRepository.findAllByItemDetailName(itemName);
+        ArrayList<ItemResponseDto> itemResponseDtos = new ArrayList<>();
+        for(Item i : items) {
+            ItemResponseDto itemResponseDto = ItemResponseDto.toDto(i);
+            itemResponseDtos.add(itemResponseDto);
+        }
+        return itemResponseDtos;
+    }
+
     @Transactional
     public void createItem(ItemRequestDto ite) {
         Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getIsRental());
