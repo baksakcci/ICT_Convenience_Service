@@ -68,7 +68,7 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/items")
+    @GetMapping("/items/itemDetailName")
     public Response getItemDetailNames(@RequestParam(value = "itemName")String itemName) {
         return Response.success(adminService.findItemDetailAll(itemName));
     }
