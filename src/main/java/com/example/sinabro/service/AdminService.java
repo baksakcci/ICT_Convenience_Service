@@ -118,9 +118,9 @@ public class AdminService {
         itemRepository.save(item);
     }
     @Transactional
-    public void deleteItem(Long id) {
-        itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
-        itemRepository.deleteById(id);
+    public void deleteItem(String itemDetailName) {
+        Item item = itemRepository.findByItemDetailName(itemDetailName).orElseThrow(ItemNotFoundException::new);
+        itemRepository.delete(item);
     }
 
 

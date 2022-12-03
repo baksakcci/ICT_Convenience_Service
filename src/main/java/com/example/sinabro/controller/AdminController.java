@@ -88,9 +88,9 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/items/{id}")
-    public Response deleteItem(@PathVariable("id") Long id) {
-        adminService.deleteItem(id);
+    @DeleteMapping("/items/delete")
+    public Response deleteItem(@RequestParam("itemDetailName") String itemDetailName) {
+        adminService.deleteItem(itemDetailName);
         return Response.success("물품 삭제 완료");
     }
 
