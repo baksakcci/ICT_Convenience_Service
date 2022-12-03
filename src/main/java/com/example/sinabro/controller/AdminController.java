@@ -106,6 +106,13 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/rentals/delete")
+    public Response clickItemReturn(@RequestBody @Valid RentalsRequestDto rentalsRequestDto) {
+        adminService.returnRental(rentalsRequestDto);
+        return Response.success("물품 반납 완료");
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/rentals")
     public Response getRentalAll() {
         return Response.success(adminService.findAll());

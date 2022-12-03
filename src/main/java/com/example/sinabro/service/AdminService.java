@@ -141,6 +141,28 @@ public class AdminService {
         Rentals rentals = new Rentals(rrd.getContent(), rentalUsers, rentalItem);
         rentalsRepository.saveAndFlush(rentals);
     }
+
+    @Transactional
+    public void returnRental(RentalsRequestDto rrd) {
+        Users rentalUsers = usersRepository.findByStudentId(rrd.getStudentId()).orElseThrow(UserNotFoundException::new);
+        Item rentalItem = itemRepository.findByItemDetailName(rrd.getItemDetailName()).orElseThrow(ItemNotFoundException::new);
+
+        // 물품이 대여가능 상태일 경우 반납 불가
+        if(rentalItem.getIsRental().equals(IsRental.CAN)) {
+            throw new ItemCanNotUseException();
+        }
+        Rentals rentals = new Rentals(rrd.getContent(), rentalUsers, rentalItem);
+        rentalsRepository.delete(rentals);
+
+        // 제일 최근 날짜의 랜탈에서 아이템 객체를 가져와서 세이브
+        // 학번만 가지고 할 수도 있지만, 만약 같은 물품을 다시 빌린다면 2개가 되어서 이렇게 하는것이 좋다고 생각
+        // 물품 대여는 1개만 가능하므로 학번과 IsRental을 검색해서 GROUP_BY로 묶어서 조회할 수도 있음.
+        Rentals rental = rentalsRepository.findTopByUsers_StudentIdOrderByBorrowDateDesc(rentalUsers.getStudentId());
+        Item item = rental.getItem();
+        item.setIsRental(IsRental.CAN);
+        itemRepository.save(item);
+    }
+
     @Transactional(readOnly = true)
     public List<RentalsResponseDto> findAll() {
         List<Rentals> rentals = rentalsRepository.findAll();

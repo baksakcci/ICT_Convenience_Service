@@ -8,5 +8,6 @@ import java.util.List;
 public interface RentalsRepository extends JpaRepository<Rentals, Long> {
 
     List<Rentals> findByContentsContaining(String keyword);
-    List<Rentals> findAllByUsers_StudentId(String StudentId);
+    List<Rentals> findAllByUsers_StudentId(String studentId);
+    Rentals findTopByUsers_StudentIdOrderByBorrowDateDesc(String studentId);
 }
