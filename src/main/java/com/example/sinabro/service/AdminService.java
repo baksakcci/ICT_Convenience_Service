@@ -97,7 +97,7 @@ public class AdminService {
 
     @Transactional(readOnly = true)
     public List<ItemResponseDto> findItemDetailAll(String itemName) {
-        List<Item> items = itemRepository.findAllByItemDetailName(itemName);
+        List<Item> items = itemRepository.findByItemNameContaining(itemName);
         ArrayList<ItemResponseDto> itemResponseDtos = new ArrayList<>();
         for(Item i : items) {
             ItemResponseDto itemResponseDto = ItemResponseDto.toDto(i);
