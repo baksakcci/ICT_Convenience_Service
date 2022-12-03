@@ -16,12 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     /* paging + searching */
     Page<Item> findByItemNameContaining(String keyword, Pageable pageable);
 
-    @Query(value =
-            "SELECT i.itemName" +
-                    "FROM Item i " +
-                    "GROUP BY i.itemName"
-            ,nativeQuery = true
-    )
+    @Query(value = "SELECT i.itemName FROM Item i GROUP BY i.itemName", nativeQuery = true)
     List<ItemNameResponseDto> findGroupByItemNameWithJPQL();
 
     Optional<Item> findByItemDetailName(String itemDetailName);
