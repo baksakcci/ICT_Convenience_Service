@@ -108,7 +108,7 @@ public class AdminService {
 
     @Transactional
     public void createItem(ItemRequestDto ite) {
-        Item item1 = itemRepository.findByItemDetailName(ite.getItemDetailName()).orElseThrow(ItemNotFoundException::new);
+        Item item1 = itemRepository.findByItemDetailName(ite.getItemDetailName()).get();
         if(item1.getItemDetailName().equals(ite.getItemDetailName())) {
             throw new ItemDontCreateException();
         }
