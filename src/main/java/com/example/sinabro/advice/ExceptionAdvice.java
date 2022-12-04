@@ -1,5 +1,6 @@
 package com.example.sinabro.advice;
 
+import com.example.sinabro.entity.item.Item;
 import com.example.sinabro.exception.*;
 import com.example.sinabro.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,12 @@ public class ExceptionAdvice {
     public Response ItemNotFoundExceptionAdvice(ItemNotFoundException e) {
         return Response.failure(404, "물품을 찾을 수 없습니다.");
     }
+    @ExceptionHandler(ItemDontCreateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response ItemDontCreateExceptionAdvice(ItemDontCreateException e) {
+        return Response.failure(400, "같은 이름을 가진 물품이 있습니다.");
+    }
+
     @ExceptionHandler(ItemCanNotUseException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public Response ItemCanNotUseExceptionAdvice(ItemCanNotUseException e) {

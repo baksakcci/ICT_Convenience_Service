@@ -81,13 +81,6 @@ public class AdminController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/items/{id}")
-    public Response updateItem(@PathVariable("id") Long id, @Valid @RequestBody ItemRequestDto itemRequestDto) {
-        adminService.updateItem(itemRequestDto, id);
-        return Response.success("물품 수정 완료");
-    }
-
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/items/delete")
     public Response deleteItem(@RequestParam("itemDetailName") String itemDetailName) {
         adminService.deleteItem(itemDetailName);

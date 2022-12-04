@@ -108,13 +108,15 @@ public class AdminService {
 
     @Transactional
     public void createItem(ItemRequestDto ite) {
+        Item item1 = itemRepository.findByItemDetailName(ite.getItemDetailName()).orElseThrow(ItemNotFoundException::new);
+        if(item1.getItemDetailName().equals(ite.getItemDetailName())) {
+            throw new ItemDontCreateException();
+        }
+        if(item1.getItemName().equals(ite.getItemName())) {
+            throw new ItemDontCreateException();
+        }
+
         Item item = new Item(ite.getItemName(), ite.getItemDetailName(), ite.getIsRental());
-        itemRepository.save(item);
-    }
-    @Transactional
-    public void updateItem(ItemRequestDto ite, Long id) {
-        Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
-        item.editItem(ite.getItemName(), ite.getItemDetailName(), ite.getIsRental());
         itemRepository.save(item);
     }
     @Transactional
@@ -159,8 +161,10 @@ public class AdminService {
         rentalsRepository.saveAndFlush(rentals);
 
         // 반납도 반납 내역 따로 만들고 로직 짜야될듯듯
+        rentalItem.setIsRental(IsRental.CAN);
+        itemRepository.save(rentalItem);
 
-       /*
+        /*
         // 제일 최근 날짜의 랜탈에서 아이템 객체를 가져와서 세이브
         // 학번만 가지고 할 수도 있지만, 만약 같은 물품을 다시 빌린다면 2개가 되어서 이렇게 하는것이 좋다고 생각
         // 물품 대여는 1개만 가능하므로 학번과 IsRental을 검색해서 GROUP_BY로 묶어서 조회할 수도 있음.
@@ -168,8 +172,6 @@ public class AdminService {
         Item item = rental.getItem();
         item.setIsRental(IsRental.CAN);
         */
-        rentalItem.setIsRental(IsRental.CAN);
-        itemRepository.save(rentalItem);
     }
 
     @Transactional(readOnly = true)
