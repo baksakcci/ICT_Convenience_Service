@@ -156,9 +156,11 @@ public class AdminService {
             throw new ItemCanNotUseException();
         }
         Rentals rentals = new Rentals(rrd.getContent(), rentalUsers, rentalItem);
-        rentalsRepository.delete(rentals);
+        rentalsRepository.saveAndFlush(rentals);
 
-        /*
+        // 반납도 반납 내역 따로 만들고 로직 짜야될듯듯
+
+       /*
         // 제일 최근 날짜의 랜탈에서 아이템 객체를 가져와서 세이브
         // 학번만 가지고 할 수도 있지만, 만약 같은 물품을 다시 빌린다면 2개가 되어서 이렇게 하는것이 좋다고 생각
         // 물품 대여는 1개만 가능하므로 학번과 IsRental을 검색해서 GROUP_BY로 묶어서 조회할 수도 있음.
