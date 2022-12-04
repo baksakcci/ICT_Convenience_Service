@@ -2,6 +2,7 @@ package com.example.sinabro.controller;
 
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
+import com.example.sinabro.dto.union.UnionRequestDto;
 import com.example.sinabro.dto.user.UserAdminRequestDto;
 import com.example.sinabro.dto.user.UsersLoginRequestDto;
 import com.example.sinabro.response.Response;
@@ -133,6 +134,21 @@ public class AdminController {
         adminService.deleteRental(rentalRequestDto, noticeId);
         return Response.success("사용 내역 삭제 완료");
     }
-
      */
+
+    /*
+    [[ Student Union isOpen ]]
+     */
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/union")
+    public Response createUnion() {
+        adminService.createOpen();
+        return Response.success("학생회실 개폐여부 생성 완료");
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/union/change")
+    public Response changeOpen() {
+        return Response.success(adminService.changeOpen());
+    }
 }
