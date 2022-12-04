@@ -15,7 +15,6 @@ public class Union {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
     @Convert(converter=BooleanToYNConverter.class)
     private boolean isOpen;
 
