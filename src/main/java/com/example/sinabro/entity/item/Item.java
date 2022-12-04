@@ -16,7 +16,7 @@ public class Item {
     private Long id;
     @Column(nullable = false)
     private String itemName;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String itemDetailName;
 
     @Enumerated(EnumType.STRING)
