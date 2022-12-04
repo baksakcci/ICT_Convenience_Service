@@ -16,6 +16,7 @@ public class Union {
     private Long id;
 
     @Column(nullable = false)
+    @Convert(converter=BooleanToYNConverter.class)
     private boolean isOpen;
 
     public Union(boolean isOpen) {
