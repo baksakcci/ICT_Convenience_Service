@@ -25,4 +25,9 @@ public class UserController {
         return Response.success(userService.loginUser(usersLoginRequestDto));
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/union")
+    public Response getUnion() {
+        return Response.success(userService.getOpen());
+    }
 }

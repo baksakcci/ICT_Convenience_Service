@@ -150,9 +150,5 @@ public class AdminController {
         return Response.success(adminService.changeOpen());
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/union")
-    public Response getUnion() {
-        return Response.success(adminService.getOpen());
-    }
+
 }

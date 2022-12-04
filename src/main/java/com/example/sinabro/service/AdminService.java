@@ -239,12 +239,4 @@ public class AdminService {
         Union union = new Union(true);
         unionRepository.save(union);
     }
-
-    @Transactional(readOnly = true)
-    public UnionResponseDto getOpen() {
-        Union union = unionRepository.findById(1L).orElseThrow();
-
-        UnionResponseDto unionResponseDto = new UnionResponseDto(union);
-        return unionResponseDto;
-    }
 }
