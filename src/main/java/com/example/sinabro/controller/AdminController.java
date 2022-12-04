@@ -102,14 +102,14 @@ public class AdminController {
     @PostMapping("/rentals")
     public Response clickRental(@Valid @RequestBody RentalsRequestDto rentalsRequestDto) {
         adminService.createRental(rentalsRequestDto);
-        return Response.success("사용 내역 생성 완료");
+        return Response.success("물품을 성공적으로 대여하였습니다.");
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/rentals/delete")
-    public Response clickItemReturn(@RequestBody @Valid RentalsRequestDto rentalsRequestDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/rentals/return")
+    public Response clickItemReturn(@Valid @RequestBody RentalsRequestDto rentalsRequestDto) {
         adminService.returnRental(rentalsRequestDto);
-        return Response.success("물품 반납 완료");
+        return Response.success("물품이 성공적으로 반납되었습니다.");
     }
 
     @ResponseStatus(HttpStatus.OK)
