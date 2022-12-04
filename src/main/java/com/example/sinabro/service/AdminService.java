@@ -1,17 +1,13 @@
 package com.example.sinabro.service;
 
-import com.example.sinabro.dto.item.ItemNameResponseDto;
 import com.example.sinabro.dto.item.ItemNameResponseInterface;
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.item.ItemResponseDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
 import com.example.sinabro.dto.rental.RentalsResponseDto;
-import com.example.sinabro.dto.union.UnionRequestDto;
 import com.example.sinabro.dto.union.UnionResponseDto;
 import com.example.sinabro.dto.user.UserAdminRequestDto;
 import com.example.sinabro.dto.user.UserAdminResponseDto;
-import com.example.sinabro.dto.user.UsersLoginRequestDto;
-import com.example.sinabro.dto.user.UsersLoginResponseDto;
 import com.example.sinabro.entity.item.IsRental;
 import com.example.sinabro.entity.item.Item;
 import com.example.sinabro.entity.union.Union;
@@ -242,5 +238,13 @@ public class AdminService {
     public void createOpen() {
         Union union = new Union(true);
         unionRepository.save(union);
+    }
+
+    @Transactional(readOnly = true)
+    public UnionResponseDto getOpen() {
+        Union union = unionRepository.findById(1L).orElseThrow();
+
+        UnionResponseDto unionResponseDto = new UnionResponseDto(union);
+        return unionResponseDto;
     }
 }

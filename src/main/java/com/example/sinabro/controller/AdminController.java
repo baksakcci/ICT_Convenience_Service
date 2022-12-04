@@ -2,9 +2,7 @@ package com.example.sinabro.controller;
 
 import com.example.sinabro.dto.item.ItemRequestDto;
 import com.example.sinabro.dto.rental.RentalsRequestDto;
-import com.example.sinabro.dto.union.UnionRequestDto;
 import com.example.sinabro.dto.user.UserAdminRequestDto;
-import com.example.sinabro.dto.user.UsersLoginRequestDto;
 import com.example.sinabro.response.Response;
 import com.example.sinabro.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -140,7 +138,7 @@ public class AdminController {
     [[ Student Union isOpen ]]
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping("/union")
+    @GetMapping("/union/create")
     public Response createUnion() {
         adminService.createOpen();
         return Response.success("학생회실 개폐여부 생성 완료");
@@ -150,5 +148,11 @@ public class AdminController {
     @GetMapping("/union/change")
     public Response changeOpen() {
         return Response.success(adminService.changeOpen());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/union")
+    public Response getUnion() {
+        return Response.success(adminService.getOpen());
     }
 }
