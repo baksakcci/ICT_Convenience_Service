@@ -31,7 +31,11 @@ public class ExceptionAdvice {
     public Response UserNotFoundExceptionAdvice(UserNotFoundException e) {
         return Response.failure(404, "DB에 저장된 회원정보를 찾을 수 없습니다.");
     }
-
+    @ExceptionHandler(UserAlreadyUsedException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public Response UserAlreadyUsedExceptionAdvice(UserAlreadyUsedException e) {
+        return Response.failure(406, "이미 같은 이름을 가진 학우분이 계십니다 :(");
+    }
     /*
     admin
      */

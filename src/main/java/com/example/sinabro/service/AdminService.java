@@ -71,6 +71,9 @@ public class AdminService {
     @Transactional
     public void deleteMember(String name) {
         Users users = usersRepository.findByName(name).orElseThrow(UserNotFoundException::new);
+        if(users.getName().equals(name)) {
+            throw new UserAlreadyUsedException();
+        }
         usersRepository.delete(users);
     }
 
