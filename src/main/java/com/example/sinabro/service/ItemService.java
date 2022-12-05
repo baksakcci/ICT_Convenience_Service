@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +41,16 @@ public class ItemService {
     public ItemResponseDto findItem(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(ItemNotFoundException::new);
         return ItemResponseDto.toDto(item);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ItemResponseDto> findByItemName(String itemName) {
+        List<Item> items = itemRepository.findByItemName(itemName);
+        List<ItemResponseDto> itemResponseDtos = new ArrayList<>();
+        for(Item i : items) {
+            ItemResponseDto itemResponseDto = ItemResponseDto.toDto(i);
+            itemResponseDtos.add(itemResponseDto);
+        }
+        return itemResponseDtos;
     }
 }

@@ -40,5 +40,10 @@ public class ItemController {
         return Response.success(itemService.findItem(id));
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/itemName")
+    public Response getItemsByItemName(@RequestParam(value = "itemName")String itemName) {
+        return Response.success(itemService.findByItemName(itemName));
+    }
 
 }
