@@ -64,14 +64,4 @@ public class ExceptionAdvice {
     public Response ItemCanNotUseExceptionAdvice(ItemCanNotUseException e) {
         return Response.failure(405, "물품이 사용중입니다. 물품이 대여 가능상태가 아닙니다.");
     }
-    /*
-    Notice
-     */
-    @ExceptionHandler(NotionNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Response NoticeNotFoundExceptionAdvice(NotionNotFoundException e) {
-        return Response.failure(404, "DB에 저장된 알림이 없습니다.");
-    }
-
-
 }

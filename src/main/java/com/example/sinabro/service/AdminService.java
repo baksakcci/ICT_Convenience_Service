@@ -40,11 +40,13 @@ public class AdminService {
      */
     @Transactional
     public UserAdminResponseDto createUser(UserAdminRequestDto urd) {
+        // 이미 등록된 사용자가 있을 때 생성 불가
         if (!usersRepository.findByStudentId(urd.getStudentId()).isEmpty()) {
             throw new SignupViolationException();
         }
 
         Users users = new Users(urd.getStudentId(), urd.getName(), urd.getPassword());
+        // admin, user 분류
         if ("admin".equals(urd.getStudentId())) {
             users.setUsersRole(UsersRole.ADMIN);
         } else {
@@ -69,11 +71,8 @@ public class AdminService {
         return result;
     }
     @Transactional
-    public void deleteMember(String name) {
-        Users users = usersRepository.findByName(name).orElseThrow(UserNotFoundException::new);
-        if(users.getName().equals(name)) {
-            throw new UserAlreadyUsedException();
-        }
+    public void deleteMember(String studentId) {
+        Users users = usersRepository.findByStudentId(studentId).orElseThrow(UserNotFoundException::new);
         usersRepository.delete(users);
     }
 
